@@ -1,5 +1,4 @@
 function calc () {
-     // calc
 
     const result = document.querySelector('.calculating__result span');
     
@@ -18,24 +17,7 @@ function calc () {
         ratio = 1.375;
         localStorage.setItem('ratio', 1.375);
     }
- 
-    function initLocalSettings (selector, activeClass) {
-        const elements = document.querySelectorAll(selector);
-         
-        elements.forEach(elem => {
-            elem.classList.remove(activeClass);
-            if(elem.get.getAttribute('id') === localStorage.getItem('sex')) {
-                 elem.classList.add(activeClass);
-            }
-            if(elem.getAttribute('data-ratio') === localStorage.getItem('ratio')) {
-                elem.classList.add(activeClass);
-            } 
-        });
-    }
- 
-    initLocalSettings('#gender div', 'calculating__choose-item_active');
-    initLocalSettings('.calculating__choose_big div', 'calculating__choose-item_active');
- 
+
     function calcTotal() {
         if(!sex || !height || !weight || !age || !ratio) {
             result.textContent = '___';
@@ -48,13 +30,31 @@ function calc () {
             result.textContent = Math.round((88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * ratio);
         }
     }
+
     calcTotal();
+ 
+    function initLocalSettings (selector, activeClass) {
+        const elements = document.querySelectorAll(selector);
+         
+        elements.forEach(elem => {
+            elem.classList.remove(activeClass);
+            if(elem.getAttribute('id') === localStorage.getItem('sex')) {
+                elem.classList.add(activeClass);
+            }
+            if(elem.getAttribute('data-ratio') === localStorage.getItem('ratio')) {
+                elem.classList.add(activeClass);
+            } 
+        });
+    }
+ 
+    initLocalSettings('#gender div', 'calculating__choose-item_active');
+    initLocalSettings('.calculating__choose_big div', 'calculating__choose-item_active');
  
     function getStaticInformation(selector, activeClass) {
         const elements = document.querySelectorAll(selector);
  
         elements.forEach(elem => {
-            elem.addEventListener('click', () => {
+            elem.addEventListener('click', (e) => {
                 if(e.target.getAttribute('data-ratio')) {
                     ratio = +e.target.getAttribute('data-ratio');
                     localStorage.setItem('ratio', +e.target.getAttribute('data-ratio'));
@@ -109,4 +109,4 @@ function calc () {
     getDynamicInformation('#age');
 }
 
-module.exports = calc;
+export default calc;
