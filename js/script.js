@@ -1,3 +1,6 @@
+require('es6-promise').polyfill();
+import 'nodelist-foreach-polyfill';
+
 const { from } = require('webpack-sources/lib/compatsource');
 
 import tabs from './modules/tabs';
